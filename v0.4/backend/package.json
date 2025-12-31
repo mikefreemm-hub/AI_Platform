@@ -1,0 +1,15 @@
+{
+  "name": "ai-platform-v0.4-backend",
+  "version": "0.4.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "node-fetch": "^3.3.2"
+  }
+}

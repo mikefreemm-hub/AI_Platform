@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Platform (v0.4)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>AI Platform (v0.4)</h1>
+
+  <div class="topbar">
+    <button id="newSessionBtn">New Session</button>
+    <div class="meta">
+      <div><strong>backend:</strong> <span id="backendUrl"></span></div>
+      <div><strong>session_id:</strong> <span id="sessionId"></span></div>
+    </div>
+  </div>
+
+  <div id="chatWindow" class="chat"></div>
+
+  <div class="composer">
+    <input id="messageInput" type="text" placeholder="Type a message..." />
+    <button id="sendBtn">Send</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

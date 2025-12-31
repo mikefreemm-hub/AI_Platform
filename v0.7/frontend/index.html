@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Platform — v0.7</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- LEFT: Entities -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brandTitle">AI Platform</div>
+        <div class="brandSub">v0.7 · Lawful Runtime</div>
+      </div>
+
+      <div class="section">
+        <div class="sectionHeader">
+          <div class="sectionTitle">Entities</div>
+          <button id="newEntityBtn" class="btn btnSmall">+ New</button>
+        </div>
+
+        <div id="entityList" class="list"></div>
+
+        <div class="entityEditor">
+          <label class="label">Selected Entity</label>
+          <input id="entityName" class="input" placeholder="Name (e.g., Planner, Builder, Analyst)" />
+          <label class="label">System Prompt</label>
+          <textarea id="entitySystem" class="textarea" placeholder="Defines how this entity behaves..."></textarea>
+
+          <div class="row">
+            <button id="saveEntityBtn" class="btn">Save</button>
+            <button id="deleteEntityBtn" class="btn btnGhost">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section subtle">
+        <div class="kv"><span>LAW</span><span>No output without trace</span></div>
+        <div class="kv"><span>Status</span><span id="statusText">Ready</span></div>
+      </div>
+    </aside>
+
+    <!-- CENTER: Chat -->
+    <main class="main">
+      <header class="topbar">
+        <div class="topbarLeft">
+          <div class="pill" id="activeEntityPill">Entity: (none)</div>
+          <div class="pill muted">Runtime: v0.7</div>
+        </div>
+        <div class="topbarRight">
+          <button id="toggleTraceBtn" class="btn btnGhost">Trace</button>
+        </div>
+      </header>
+
+      <section id="chat" class="chat"></section>
+
+      <footer class="composer">
+        <div class="composerInner">
+          <textarea id="prompt" class="composerInput" rows="1" placeholder="Message an entity..."></textarea>
+          <button id="sendBtn" class="sendBtn" title="Send">
+            ➤
+          </button>
+        </div>
+        <div class="composerHint">
+          Enter = send · Shift+Enter = newline · Every reply is trace-backed.
+        </div>
+      </footer>
+    </main>
+
+    <!-- RIGHT: Trace Drawer -->
+    <aside id="traceDrawer" class="drawer">
+      <div class="drawerHeader">
+        <div class="drawerTitle">Execution Ledger</div>
+        <button id="closeTraceBtn" class="btn btnGhost btnSmall">Close</button>
+      </div>
+
+      <div class="drawerBody">
+        <div class="subHeader">
+          <div class="subTitle">Runs</div>
+          <button id="refreshRunsBtn" class="btn btnGhost btnSmall">Refresh</button>
+        </div>
+        <div id="runList" class="list"></div>
+
+        <div class="subHeader">
+          <div class="subTitle">Selected Trace</div>
+          <div id="traceMeta" class="meta muted">None loaded</div>
+        </div>
+
+        <div id="traceView" class="traceView">
+          <div class="empty muted">Pick a run to inspect steps.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

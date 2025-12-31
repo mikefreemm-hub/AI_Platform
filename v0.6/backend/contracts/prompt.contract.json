@@ -1,0 +1,20 @@
+{
+  "version": "v0.6",
+  "prompts": {
+    "system": {
+      "path": "prompts/system.md",
+      "mutable": false
+    },
+    "developer": {
+      "path": "prompts/developer.md",
+      "mutable": false
+    },
+    "session": {
+      "path": "prompts/session.md",
+      "mutable": true
+    }
+  },
+  "rules": {
+    "reject_on_violation": true
+  }
+}

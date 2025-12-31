@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Platform v0.6</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>AI Platform v0.6</h1>
+
+  <section class="controls">
+    <label>
+      <input type="checkbox" id="traceToggle" checked />
+      Trace Execution
+    </label>
+
+    <label>
+      <input type="checkbox" id="deterministicToggle" />
+      Deterministic Mode
+    </label>
+
+    <label>
+      <input type="checkbox" id="explainToggle" />
+      Explain Output
+    </label>
+  </section>
+
+  <section class="input">
+    <textarea id="userInput" placeholder="Enter message..."></textarea>
+    <button id="sendBtn">Send</button>
+  </section>
+
+  <section class="output">
+    <pre id="response"></pre>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

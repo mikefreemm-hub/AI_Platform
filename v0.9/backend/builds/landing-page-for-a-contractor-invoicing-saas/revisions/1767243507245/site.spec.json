@@ -1,0 +1,52 @@
+{
+  "site": {
+    "name": "landing-page-for-a-contractor-invoicing-saas",
+    "purpose": "Landing page for a contractor invoicing SaaS",
+    "pages": [
+      {
+        "slug": "index",
+        "title": "Home",
+        "sections": [
+          "hero",
+          "features",
+          "cta"
+        ],
+        "cta": {
+          "label": "View Pricing",
+          "action": "navigate",
+          "target": "pricing"
+        }
+      },
+      {
+        "slug": "pricing",
+        "title": "Pricing",
+        "sections": [
+          "pricing"
+        ],
+        "cta": {
+          "label": "Start Free Trial",
+          "action": "navigate",
+          "target": "contact"
+        }
+      },
+      {
+        "slug": "about",
+        "title": "About",
+        "sections": [
+          "about"
+        ]
+      },
+      {
+        "slug": "contact",
+        "title": "Contact",
+        "sections": [
+          "contact"
+        ]
+      }
+    ],
+    "theme": {
+      "primaryColor": "#2563eb",
+      "font": "system-ui"
+    }
+  }
+}

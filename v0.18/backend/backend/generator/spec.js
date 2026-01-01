@@ -1,0 +1,47 @@
+export function generateSpec(prompt) {
+  return {
+    site: {
+      name: prompt
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, ""),
+      purpose: prompt,
+      pages: [
+        {
+          slug: "index",
+          title: "Home",
+          sections: ["hero", "features"],
+          cta: {
+            label: "Get Started",
+            action: "navigate",
+            target: "pricing"
+          }
+        },
+        {
+          slug: "pricing",
+          title: "Pricing",
+          sections: ["pricing"],
+          cta: {
+            label: "Start Free Trial",
+            action: "navigate",
+            target: "contact"
+          }
+        },
+        {
+          slug: "about",
+          title: "About",
+          sections: ["about"]
+        },
+        {
+          slug: "contact",
+          title: "Contact",
+          sections: ["contact"]
+        }
+      ],
+      theme: {
+        primaryColor: "#2563eb",
+        font: "system-ui"
+      }
+    }
+  };
+}

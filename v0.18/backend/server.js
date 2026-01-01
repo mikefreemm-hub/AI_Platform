@@ -24,12 +24,24 @@ app.post("/chat", async (req, res) => {
     // 3️⃣ Render site
     const result = await runFull(spec, {});
 
-    // 4️⃣ Respond
+    // 4️⃣ Respond (include a lightweight summary for the UI)
+    const pageList = Object.keys(currentPlan.pages || {});
+    const summary = [
+      currentPlan.brandName ? `Brand: ${currentPlan.brandName}` : null,
+      currentPlan.purpose ? `Purpose: ${currentPlan.purpose}` : null,
+      currentPlan.siteType ? `Type: ${currentPlan.siteType}` : null,
+      `Theme: ${currentPlan.theme || "light"}`,
+      `Tone: ${currentPlan.tone || "neutral"}`,
+      `Quality: ${currentPlan.quality || "basic"}`,
+      `Pages: ${pageList.length ? pageList.join(", ") : "(none)"}`
+    ].filter(Boolean).join(" | ");
+
     res.json({
       files: result.files,
+      plan: currentPlan,
       assistant: {
         role: "assistant",
-        content: "Updated the site based on your request."
+        content: summary
       }
     });
   } catch (err) {
@@ -38,5 +50,5 @@ app.post("/chat", async (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log("v0.23 running at http://localhost:3001");
+  console.log("v0.18 chat running at http://localhost:3001");
 });

@@ -1,0 +1,167 @@
+{
+  "site": {
+    "name": "an-ai-platform-make-it-premium-and-add-pricing",
+    "purpose": "Create a modern SaaS landing page for an AI platform. Make it premium and add pricing.",
+    "tone": "premium",
+    "theme": {
+      "mode": "dark",
+      "accent": "purple"
+    },
+    "nav": [
+      {
+        "label": "Home",
+        "target": "index"
+      },
+      {
+        "label": "Pricing",
+        "target": "index#pricing"
+      }
+    ],
+    "pages": [
+      {
+        "slug": "index",
+        "title": "Home",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "The AI platform that makes serious work feel effortless.",
+            "subhead": "Secure, compliant, and built for teams who need reliability at scale.",
+            "primaryCta": "Get started",
+            "secondaryCta": "View demo"
+          },
+          {
+            "type": "logos",
+            "title": "Trusted by teams building the future",
+            "items": [
+              "Nova",
+              "Aperture",
+              "Kite",
+              "Northwind",
+              "Helio"
+            ]
+          },
+          {
+            "type": "features",
+            "title": "Everything you need to build fast",
+            "items": [
+              {
+                "title": "Chat-first editing",
+                "text": "Refine any part of your site with natural language."
+              },
+              {
+                "title": "Structured output",
+                "text": "Spec-driven generation keeps output consistent and editable."
+              },
+              {
+                "title": "Export-ready",
+                "text": "Download a clean HTML build whenever you’re ready."
+              }
+            ]
+          },
+          {
+            "type": "benefits",
+            "title": "Why teams switch",
+            "items": [
+              "Consistent design system across revisions",
+              "Clear content hierarchy and CTAs",
+              "Fast iteration without breaking layout"
+            ]
+          },
+          {
+            "type": "testimonials",
+            "title": "Teams ship faster",
+            "items": [
+              {
+                "quote": "We cut our landing page iteration time from days to an hour.",
+                "name": "Product Lead",
+                "org": "Northwind"
+              },
+              {
+                "quote": "The spec model makes refinement predictable and safe.",
+                "name": "Engineer",
+                "org": "Helio"
+              }
+            ]
+          },
+          {
+            "type": "faq",
+            "title": "FAQ",
+            "items": [
+              {
+                "q": "Can I refine using plain English?",
+                "a": "Yes — just describe what you want and the spec updates."
+              },
+              {
+                "q": "Can I export?",
+                "a": "Yes — export generates clean HTML you can host anywhere."
+              },
+              {
+                "q": "Can I make it darker / lighter?",
+                "a": "Yes — theme refinements update the UI style consistently."
+              }
+            ]
+          },
+          {
+            "type": "cta",
+            "title": "Ready to build?",
+            "text": "Generate a site and refine it like a real conversation.",
+            "button": "Start now"
+          },
+          {
+            "type": "contact",
+            "title": "Contact",
+            "text": "Tell us what you’re building — we’ll reply within 1–2 business days.",
+            "fields": [
+              "Name",
+              "Email",
+              "Message"
+            ],
+            "button": "Send"
+          },
+          {
+            "type": "pricing",
+            "title": "Pricing",
+            "subtitle": "Simple plans that scale with you",
+            "plans": [
+              {
+                "name": "Starter",
+                "price": "$0",
+                "period": "mo",
+                "bullets": [
+                  "1 project",
+                  "Basic export",
+                  "Community support"
+                ],
+                "cta": "Start free"
+              },
+              {
+                "name": "Pro",
+                "price": "$29",
+                "period": "mo",
+                "bullets": [
+                  "Unlimited projects",
+                  "Priority export",
+                  "Revision history"
+                ],
+                "cta": "Go Pro",
+                "highlight": true
+              },
+              {
+                "name": "Team",
+                "price": "$99",
+                "period": "mo",
+                "bullets": [
+                  "Team workspace",
+                  "Shared revisions",
+                  "Admin controls"
+                ],
+                "cta": "Contact sales"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "lastInstruction": "DOG WEBSITE"
+  }
+}

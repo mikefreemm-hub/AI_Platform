@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Create a modern SaaS landing page for an AI platform. Make it premium and add pricing."
+  },
+  {
+    "role": "user",
+    "content": "Make it darker, switch accent to purple, add an FAQ and a contact section."
+  },
+  {
+    "role": "user",
+    "content": "ADJUST PRICING"
+  },
+  {
+    "role": "user",
+    "content": "DOG WEBSITE"
+  }
+]

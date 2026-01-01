@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Platform v0.8 — NL Website Generator</title>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, Arial; margin: 0; background: #0b0e11; color: #e6e6e6; }
+    header { padding: 16px 20px; border-bottom: 1px solid #2a2f36; display:flex; gap:12px; align-items:center; justify-content:space-between; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 18px 20px; }
+    textarea { width: 100%; min-height: 160px; background: #0f141a; color: #e6e6e6; border: 1px solid #2a2f36; border-radius: 10px; padding: 12px; font-size: 14px; }
+    button { background:#1f6feb; color:white; border:0; border-radius:10px; padding:10px 14px; cursor:pointer; font-weight:600; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .card { background:#0f141a; border: 1px solid #2a2f36; border-radius: 14px; padding: 14px; }
+    .grid { display:grid; grid-template-columns: 1.1fr .9fr; gap: 14px; }
+    a { color: #8ab4ff; text-decoration: none; }
+    pre { white-space: pre-wrap; word-wrap: break-word; }
+    .small { color:#9aa4b2; font-size: 12px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div style="font-weight:800;">AI Platform v0.8</div>
+      <div class="small">Natural-language → full website files → instant preview</div>
+    </div>
+    <div class="row">
+      <button id="btnHealth" onclick="health()">Health</button>
+      <button id="btnList" onclick="listBuilds()">List Builds</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="grid">
+      <div class="card">
+        <div class="row" style="justify-content:space-between;">
+          <div style="font-weight:700;">Prompt</div>
+          <div class="small">Tip: Ask for 3 pages + nav + pricing + contact form + modern styling</div>
+        </div>
+        <textarea id="prompt">Create a modern 3-page website for a coffee shop with navigation, menu/pricing, and a contact page.</textarea>
+        <div class="row" style="margin-top:10px;">
+          <button id="btnGen" onclick="generate()">Generate</button>
+          <button id="btnOpen" onclick="openPreview()" disabled>Open Preview</button>
+          <span class="small" id="status"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-weight:700;">Result</div>
+        <div class="small" id="resultMeta"></div>
+        <pre id="output" style="margin:10px 0 0 0;"></pre>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div style="font-weight:700;">Builds</div>
+      <div class="small">Generated builds appear here. Click preview to open.</div>
+      <div id="builds" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+<script>
+  let lastPreviewUrl = null;
+
+  function setStatus(msg) {
+    document.getElementById("status").textContent = msg || "";
+  }
+
+  async function health() {
+    setStatus("Checking health...");
+    const res = await fetch("/health");
+    const data = await res.json();
+    document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+    document.getElementById("resultMeta").textContent = "";
+    setStatus(data.has_api_key ? "OK (API key present)" : "API key missing");
+  }
+
+  async function listBuilds() {
+    setStatus("Listing builds...");
+    const res = await fetch("/builds-list");
+    const data = await res.json();
+    const el = document.getElementById("builds");
+    el.innerHTML = "";
+
+    for (const b of (data.builds || [])) {
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.justifyContent = "space-between";
+      row.style.borderTop = "1px solid #2a2f36";
+      row.style.padding = "10px 0";
+      row.innerHTML = `
+        <div>
+          <div style="font-weight:650;">${b.title || "(no title)"} <span class="small">(${b.build_id})</span></div>
+          <div class="small">${b.created_at || ""}</div>
+        </div>
+        <div><a href="${b.preview_url}" target="_blank">Open preview</a></div>
+      `;
+      el.appendChild(row);
+    }
+
+    document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+    document.getElementById("resultMeta").textContent = "";
+    setStatus("Done");
+  }
+
+  async function generate() {
+    const btn = document.getElementById("btnGen");
+    btn.disabled = true;
+    document.getElementById("btnOpen").disabled = true;
+    setStatus("Generating...");
+
+    const prompt = document.getElementById("prompt").value;
+
+    const res = await fetch("/generate-site", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+
+    if (data.preview_url) {
+      lastPreviewUrl = data.preview_url;
+      document.getElementById("resultMeta").innerHTML = `Preview: <a href="${data.preview_url}" target="_blank">${data.preview_url}</a>`;
+      document.getElementById("btnOpen").disabled = false;
+      setStatus("Generated ✔");
+      window.open(data.preview_url, "_blank");
+    } else {
+      document.getElementById("resultMeta").textContent = "";
+      setStatus(data.error ? ("Error: " + data.error) : "No preview returned");
+    }
+
+    btn.disabled = false;
+  }
+
+  function openPreview() {
+    if (!lastPreviewUrl) return;
+    window.open(lastPreviewUrl, "_blank");
+  }
+
+  // initial health check
+  health();
+</script>
+</body>
+</html>

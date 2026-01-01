@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.hero {
+    background: url('coffee-hero.jpg') no-repeat center center/cover;
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+}
+
+.btn {
+    background-color: #6f4c3e;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.testimonials {
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.testimonial {
+    margin: 10px 0;
+    font-style: italic;
+}
+
+.pricing {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.pricing-item {
+    margin: 10px 0;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #6f4c3e;
+    color: white;
+}

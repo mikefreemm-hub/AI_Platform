@@ -1,166 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>AI Platform — v0.23.3</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0b0e11;
-      color: #e6e6e6;
-    }
-
-    .app {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      height: 100vh;
-    }
-
-    .chat {
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid #222;
-    }
-
-    .messages {
-      flex: 1;
-      padding: 16px;
-      overflow-y: auto;
-    }
-
-    .msg {
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-
-    .user { color: #93c5fd; }
-    .assistant { color: #a7f3d0; }
-    .error { color: #fca5a5; }
-
-    .input {
-      display: flex;
-      gap: 8px;
-      padding: 12px;
-      border-top: 1px solid #222;
-    }
-
-    input {
-      flex: 1;
-      padding: 8px;
-      background: #111;
-      border: 1px solid #333;
-      color: #e6e6e6;
-    }
-
-    button {
-      padding: 8px 12px;
-      background: #2563eb;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: white;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>AI Website Generator</title>
+<style>
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  background: #0b0e11;
+  color: #e6e6e6;
+  font-family: system-ui;
+}
+#chat {
+  width: 40%;
+  padding: 16px;
+  border-right: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+}
+#messages {
+  flex: 1;
+  overflow-y: auto;
+}
+#messages div {
+  margin-bottom: 10px;
+}
+#input {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+}
+#preview {
+  flex: 1;
+  border: none;
+  background: #fff;
+}
+</style>
 </head>
+
 <body>
 
-<div class="app">
-  <div class="chat">
-    <div class="messages" id="messages"></div>
-    <div class="input">
-      <input id="chatInput" placeholder="Describe or refine your website..." />
-      <button id="sendBtn">Send</button>
-    </div>
-  </div>
-
-  <iframe id="frame"></iframe>
+<div id="chat">
+  <div id="messages"></div>
+  <input id="input" placeholder="Describe the website you want, or ask for changes…" />
 </div>
 
-<script>
-const messages = document.getElementById("messages");
-const input = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
-const frame = document.getElementById("frame");
+<iframe id="preview"></iframe>
 
-let files = {};
-let activeFile = null;
+<script>
+let site = null;
+let revision = null;
+let currentPage = "home";
+
+const messages = document.getElementById("messages");
+const input = document.getElementById("input");
+const preview = document.getElementById("preview");
 
 function addMessage(role, text) {
   const div = document.createElement("div");
-  div.className = "msg " + role;
-  div.textContent =
-    (role === "user" ? "You: " :
-     role === "assistant" ? "AI: " : "Error: ") + text;
+  div.textContent = role + ": " + text;
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
 }
 
-function openFile(name) {
-  if (!files[name]) return;
-  activeFile = name;
-  frame.srcdoc = files[name];
-}
+input.addEventListener("keydown", async e => {
+  if (e.key !== "Enter") return;
 
-// ✅ SAFE NAV HANDLING — NO SCRIPT INJECTION
-frame.addEventListener("load", () => {
-  try {
-    const doc = frame.contentDocument;
-    if (!doc) return;
+  const message = input.value.trim();
+  if (!message) return;
+  input.value = "";
 
-    doc.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        const target = link.getAttribute("href");
-        if (files[target]) {
-          openFile(target);
-        }
-      });
-    });
-  } catch (err) {
-    console.warn("Iframe link bind failed:", err);
-  }
-});
+  addMessage("You", message);
 
-sendBtn.onclick = async () => {
-  try {
-    const text = input.value.trim();
-    if (!text) return;
+  const res = await fetch("/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, site, revision })
+  });
 
-    addMessage("user", text);
-    input.value = "";
+  const data = await res.json();
+  addMessage("AI", data.message);
 
-    const res = await fetch("/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
-    });
+  site = data.site;
+  revision = data.revision;
+  if (data.page) currentPage = data.page;
 
-    if (!res.ok) {
-      throw new Error("Server error " + res.status);
-    }
-
-    const data = await res.json();
-    addMessage("assistant", data.assistant?.content || "Updated.");
-
-    files = data.files || {};
-    const first = Object.keys(files)[0];
-    if (first) openFile(first);
-
-  } catch (err) {
-    console.error(err);
-    addMessage("error", err.message);
-  }
-};
-
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") sendBtn.click();
+  preview.src = `/builds/${site}/${revision}/${currentPage}.html`;
 });
 </script>
 

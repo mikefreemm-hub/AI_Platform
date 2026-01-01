@@ -4,3 +4,6 @@ builds/
 **/builds/
 .DS_Store
 .env
+# Experimental / archived work
+ui-lindy/
+v0.7/

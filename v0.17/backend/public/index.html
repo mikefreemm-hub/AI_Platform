@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Website Generator</title>
+  <style>
+    body { font-family: system-ui; margin: 0; display: flex; height: 100vh; }
+    #controls { width: 420px; padding: 20px; border-right: 1px solid #ddd; }
+    textarea, select { width: 100%; margin-bottom: 10px; }
+    button { padding: 8px 14px; margin-top: 6px; }
+    #preview { flex: 1; border: none; }
+    #status { font-family: monospace; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div id="controls">
+  <h2>Generator</h2>
+
+  <label>Prompt</label>
+  <textarea id="prompt" rows="4">Make a website about dogs</textarea>
+
+  <label>Quality</label>
+  <select id="quality">
+    <option value="basic">Basic</option>
+    <option value="detailed">Detailed</option>
+    <option value="professional">Professional</option>
+    <option value="marketing">Marketing / SaaS</option>
+  </select>
+
+  <label>Tone</label>
+  <select id="tone">
+    <option value="neutral">Neutral</option>
+    <option value="friendly">Friendly</option>
+    <option value="professional">Professional</option>
+  </select>
+
+  <button onclick="generate()">Generate</button>
+
+  <hr>
+
+  <h3>Edit Site</h3>
+  <textarea id="edit" rows="3"
+    placeholder="e.g. Make the home page more professional"></textarea>
+  <button onclick="editSite()">Apply Edit</button>
+
+  <div id="status"></div>
+</div>
+
+<iframe id="preview"></iframe>
+
+<script>
+let currentSite = null;
+let currentRevision = null;
+
+async function generate() {
+  const prompt = document.getElementById("prompt").value;
+  const quality = document.getElementById("quality").value;
+  const tone = document.getElementById("tone").value;
+  const status = document.getElementById("status");
+
+  status.textContent = "Generating…";
+
+  const res = await fetch("/generate-site", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      prompt,
+      intent: { quality, tone }
+    })
+  });
+
+  const data = await res.json();
+
+  currentSite = data.site;
+  currentRevision = data.revision;
+
+  status.textContent =
+    `Generated ${currentSite} @ ${currentRevision}`;
+
+  document.getElementById("preview").src =
+    `/builds/${currentSite}/${currentRevision}/index.html`;
+}
+
+async function editSite() {
+  if (!currentSite || !currentRevision) {
+    alert("Generate a site first");
+    return;
+  }
+
+  const instruction = document.getElementById("edit").value;
+  const status = document.getElementById("status");
+
+  status.textContent = "Applying edit…";
+
+  const res = await fetch("/command", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      site: currentSite,
+      revision: currentRevision,
+      page: "index",
+      instruction
+    })
+  });
+
+  const data = await res.json();
+  status.textContent = "Edit applied";
+
+  document.getElementById("preview").src += "?t=" + Date.now();
+}
+</script>
+
+</body>
+</html>

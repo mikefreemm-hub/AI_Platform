@@ -1,0 +1,143 @@
+import express from "express";
+import fs from "fs";
+import path from "path";
+
+const app = express();
+app.use(express.json());
+
+const ROOT = process.cwd();
+const STATE = path.join(ROOT, "state", "sites");
+const BUILDS = path.join(ROOT, "builds");
+
+function loadSpec(site){
+  const p = path.join(STATE, site, "spec.json");
+  return JSON.parse(fs.readFileSync(p, "utf-8"));
+}
+
+function saveSpec(site, spec){
+  const dir = path.join(STATE, site);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, "spec.json"), JSON.stringify(spec, null, 2));
+}
+
+function esc(s=""){
+  return String(s).replace(/[&<>"]/g, c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"
+  }[c]));
+}
+
+function renderSection(s){
+  if(s.type === "list"){
+    return `
+      <div class="section">
+        <div class="grid">
+          ${s.items.map(i=>`
+            <div class="card">
+              <strong>${esc(i.title)}</strong>
+              <p>${esc(i.body)}</p>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  return "";
+}
+
+function renderPage(page){
+  return (page.sections || []).map(renderSection).join("");
+}
+
+function buildSite(site){
+  const spec = loadSpec(site);
+
+  if(!spec.site._pages){
+    spec.site._pages = (spec.site.pages || []).map(p=>({
+      title: p,
+      slug: p.toLowerCase().replace(/[^a-z0-9]+/g,"-"),
+      sections: []
+    }));
+    saveSpec(site, spec);
+  }
+
+  const nav = spec.site._pages.map(p=>
+    `<a href="?page=${p.slug}">${esc(p.title)}</a>`
+  ).join("");
+
+  const html = `
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>${esc(spec.site.title || "")}</title>
+<style>
+body{margin:0;background:#0b0e11;color:#e6e6e6;font-family:system-ui}
+nav{display:flex;gap:14px;padding:14px 20px;border-bottom:1px solid #1f2430}
+nav a{color:#cbd5f5;text-decoration:none}
+.wrap{padding:40px}
+.section{margin-top:40px}
+.card{padding:16px;border-radius:12px;background:#151922}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+</style>
+</head>
+<body>
+<nav>${nav}</nav>
+<div class="wrap" id="app"></div>
+<script>
+const pages = ${JSON.stringify(spec.site._pages)};
+const slug = new URLSearchParams(location.search).get("page") || pages[0].slug;
+const page = pages.find(p=>p.slug===slug);
+document.getElementById("app").innerHTML = page ? ${renderPage.toString()}(page) : "";
+</script>
+</body>
+</html>
+`;
+
+  const out = path.join(BUILDS, site);
+  fs.mkdirSync(out, { recursive:true });
+  fs.writeFileSync(path.join(out,"index.html"), html);
+}
+
+app.post("/chat",(req,res)=>{
+  const { message } = req.body;
+  const spec = loadSpec("default");
+
+  if(!spec.site._pages){
+    spec.site._pages = spec.site.pages.map(p=>({
+      title:p,
+      slug:p.toLowerCase().replace(/[^a-z0-9]+/g,"-"),
+      sections:[]
+    }));
+  }
+
+  const m = message.match(/on the (.+?) page/i);
+  const l = message.match(/list (.+?) with/i);
+
+  if(m && l){
+    const page = spec.site._pages.find(p=>p.title.toLowerCase()===m[1].toLowerCase());
+    if(page){
+      page.sections = [{
+        type:"list",
+        items: l[1].split(",").map(v=>({
+          title:v.trim(),
+          body:"Description coming soon."
+        }))
+      }];
+    }
+  }
+
+  saveSpec("default", spec);
+  res.json({ ok:true, site:"default" });
+});
+
+app.post("/export",(req,res)=>{
+  buildSite("default");
+  res.json({ ok:true });
+});
+
+app.use("/builds", express.static(BUILDS));
+
+app.listen(3001,()=>{
+  console.log("AI Platform v0.20 running on http://localhost:3001");
+});

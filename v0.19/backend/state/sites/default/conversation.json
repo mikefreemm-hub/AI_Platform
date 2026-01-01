@@ -1,0 +1,30 @@
+[
+  {
+    "role": "user",
+    "content": "DOG WEBSITE"
+  },
+  {
+    "role": "user",
+    "content": "ADD THE WORD CAT"
+  },
+  {
+    "role": "user",
+    "content": "CAT"
+  },
+  {
+    "role": "user",
+    "content": "Add a pricing section with three tiers"
+  },
+  {
+    "role": "user",
+    "content": "Rewrite the headline to be specific and conversion-focused for a dog training business."
+  },
+  {
+    "role": "user",
+    "content": "CAT WEBSITE"
+  },
+  {
+    "role": "user",
+    "content": "CAT WEBSITE"
+  }
+]

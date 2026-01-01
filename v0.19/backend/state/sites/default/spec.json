@@ -1,0 +1,210 @@
+{
+  "header": {
+    "logo": "images/logo.png",
+    "navigation": [
+      {
+        "name": "Home",
+        "link": "/"
+      },
+      {
+        "name": "About Us",
+        "link": "/about"
+      },
+      {
+        "name": "Adopt",
+        "link": "/adopt"
+      },
+      {
+        "name": "Donate",
+        "link": "/donate"
+      },
+      {
+        "name": "Contact",
+        "link": "/contact"
+      }
+    ],
+    "cta": {
+      "name": "Donate Now",
+      "link": "/donate"
+    }
+  },
+  "heroSection": {
+    "backgroundImage": "images/hero-dogs.jpg",
+    "title": "Find Your New Best Friend",
+    "subtitle": "Adopt a dog or cat and give them a forever home",
+    "cta": {
+      "name": "View Pets for Adoption",
+      "link": "/adopt"
+    }
+  },
+  "aboutSection": {
+    "title": "About Us",
+    "content": "We are a non-profit organization dedicated to rescuing and rehoming abandoned dogs and cats. Our mission is to provide a safe and loving environment for our furry friends until they find their forever homes.",
+    "image": "images/about-us.jpg"
+  },
+  "adoptSection": {
+    "title": "Adopt a Dog or Cat",
+    "intro": "Meet our lovable dogs and cats waiting for a family.",
+    "pets": [
+      {
+        "name": "Buddy",
+        "species": "Dog",
+        "breed": "Golden Retriever",
+        "age": "3 years",
+        "image": "images/dogs/buddy.jpg",
+        "description": "Buddy is a friendly and energetic dog who loves to play fetch."
+      },
+      {
+        "name": "Luna",
+        "species": "Dog",
+        "breed": "Labrador Retriever",
+        "age": "2 years",
+        "image": "images/dogs/luna.jpg",
+        "description": "Luna is a gentle and affectionate companion who enjoys long walks."
+      },
+      {
+        "name": "Whiskers",
+        "species": "Cat",
+        "breed": "Tabby",
+        "age": "4 years",
+        "image": "images/cats/whiskers.jpg",
+        "description": "Whiskers is a playful and curious cat who loves to explore."
+      }
+    ]
+  },
+  "donateSection": {
+    "title": "Support Our Cause",
+    "content": "Your donations help us provide food, shelter, and medical care to our dogs and cats. Every little bit helps.",
+    "donationOptions": [
+      {
+        "amount": "$10",
+        "description": "Provides a meal for a pet"
+      },
+      {
+        "amount": "$50",
+        "description": "Covers a vet visit"
+      },
+      {
+        "amount": "$100",
+        "description": "Supports adoption events"
+      }
+    ],
+    "cta": {
+      "name": "Donate Now",
+      "link": "/donate"
+    }
+  },
+  "pricingSection": {
+    "title": "Adoption Pricing",
+    "tiers": [
+      {
+        "name": "Basic",
+        "price": "$50",
+        "features": [
+          "Adoption of a pet",
+          "Initial vet check-up",
+          "Starter pack of pet food"
+        ],
+        "cta": {
+          "name": "Adopt Now",
+          "link": "/adopt/basic"
+        }
+      },
+      {
+        "name": "Standard",
+        "price": "$100",
+        "features": [
+          "Adoption of a pet",
+          "Initial vet check-up",
+          "Starter pack of pet food",
+          "Free training session"
+        ],
+        "cta": {
+          "name": "Adopt Now",
+          "link": "/adopt/standard"
+        }
+      },
+      {
+        "name": "Premium",
+        "price": "$150",
+        "features": [
+          "Adoption of a pet",
+          "Initial vet check-up",
+          "Starter pack of pet food",
+          "Free training session",
+          "One year of pet insurance"
+        ],
+        "cta": {
+          "name": "Adopt Now",
+          "link": "/adopt/premium"
+        }
+      }
+    ]
+  },
+  "testimonialSection": {
+    "title": "Happy Tails",
+    "testimonials": [
+      {
+        "name": "Emily & Max",
+        "content": "Adopting Max was the best decision we ever made. He's brought so much joy into our lives.",
+        "image": "images/testimonials/emily-max.jpg"
+      },
+      {
+        "name": "The Johnson Family",
+        "content": "Thanks to your organization, we found our perfect match with Bella. We can't imagine life without her.",
+        "image": "images/testimonials/johnson-family.jpg"
+      }
+    ]
+  },
+  "contactSection": {
+    "title": "Contact Us",
+    "content": "Have questions? Want to volunteer? Get in touch!",
+    "form": {
+      "fields": [
+        {
+          "name": "Name",
+          "type": "text"
+        },
+        {
+          "name": "Email",
+          "type": "email"
+        },
+        {
+          "name": "Message",
+          "type": "textarea"
+        }
+      ],
+      "submit": {
+        "name": "Send Message",
+        "link": "/contact/submit"
+      }
+    }
+  },
+  "footer": {
+    "links": [
+      {
+        "name": "Privacy Policy",
+        "link": "/privacy"
+      },
+      {
+        "name": "Terms of Service",
+        "link": "/terms"
+      }
+    ],
+    "socialMedia": [
+      {
+        "platform": "Facebook",
+        "link": "https://facebook.com"
+      },
+      {
+        "platform": "Instagram",
+        "link": "https://instagram.com"
+      },
+      {
+        "platform": "Twitter",
+        "link": "https://twitter.com"
+      }
+    ],
+    "copyright": "© 2023 Dog and Cat Rescue Organization"
+  }
+}

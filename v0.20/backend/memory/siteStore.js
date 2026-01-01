@@ -12,27 +12,31 @@ function ensureDir(p) {
 function ensureState() {
   ensureDir(STATE_DIR);
   ensureDir(SITES_DIR);
+  ensureDir(path.join(STATE_DIR, "revisions"));
 }
 
 function siteDir(site = "default") {
-  ensureState();
   return path.join(SITES_DIR, site);
 }
 
-export function getLast() {
-  ensureState();
-  if (!fs.existsSync(LAST_PATH)) {
-    return { site: "default", revision: null, currentPage: "index", ts: 0 };
+function safeReadJson(p, fallback) {
+  try {
+    if (!fs.existsSync(p)) return fallback;
+    const raw = fs.readFileSync(p, "utf-8");
+    return JSON.parse(raw || "null") ?? fallback;
+  } catch {
+    return fallback;
   }
-  return JSON.parse(fs.readFileSync(LAST_PATH, "utf-8"));
 }
 
-export function setLast(next) {
+function safeWriteJson(p, obj) {
   ensureState();
-  fs.writeFileSync(LAST_PATH, JSON.stringify(next, null, 2), "utf-8");
+  ensureDir(path.dirname(p));
+  fs.writeFileSync(p, JSON.stringify(obj, null, 2), "utf-8");
 }
 
 export function ensureSite(site = "default") {
+  ensureState();
   const dir = siteDir(site);
   ensureDir(dir);
 
@@ -45,50 +49,52 @@ export function ensureSite(site = "default") {
   return dir;
 }
 
+export function getLast() {
+  ensureState();
+  return safeReadJson(LAST_PATH, { site: "default", revision: null, currentPage: "index", ts: 0 });
+}
+
+export function setLast(obj) {
+  ensureState();
+  safeWriteJson(LAST_PATH, obj);
+}
+
 export function loadConversation(site = "default") {
   const dir = ensureSite(site);
-  const p = path.join(dir, "conversation.json");
-  return JSON.parse(fs.readFileSync(p, "utf-8"));
+  return safeReadJson(path.join(dir, "conversation.json"), []);
 }
 
-export function saveConversation(site = "default", convo = []) {
+export function appendConversation(site = "default", msg) {
   const dir = ensureSite(site);
-  fs.writeFileSync(path.join(dir, "conversation.json"), JSON.stringify(convo, null, 2), "utf-8");
-}
-
-export function appendConversation(site = "default", entry) {
-  const convo = loadConversation(site);
-  convo.push(entry);
-  saveConversation(site, convo);
-  return convo;
+  const p = path.join(dir, "conversation.json");
+  const convo = safeReadJson(p, []);
+  convo.push({ ...msg, ts: Date.now() });
+  safeWriteJson(p, convo);
 }
 
 export function loadSpec(site = "default") {
   const dir = ensureSite(site);
-  const p = path.join(dir, "spec.json");
-  const raw = fs.readFileSync(p, "utf-8").trim();
-  if (!raw) return null;
-  const parsed = JSON.parse(raw);
-  if (!parsed || !parsed.site) return null;
-  return parsed;
+  return safeReadJson(path.join(dir, "spec.json"), null);
 }
 
 export function saveSpec(site = "default", spec) {
   const dir = ensureSite(site);
-  fs.writeFileSync(path.join(dir, "spec.json"), JSON.stringify(spec, null, 2), "utf-8");
+  safeWriteJson(path.join(dir, "spec.json"), spec);
 }
 
 export function resetAllState() {
+  // wipe everything but keep root folder
   ensureState();
-  // wipe everything but keep folders
+
   try { fs.rmSync(path.join(STATE_DIR, "revisions"), { recursive: true, force: true }); } catch {}
   try { fs.rmSync(path.join(STATE_DIR, "sites"), { recursive: true, force: true }); } catch {}
   try { fs.rmSync(LAST_PATH, { force: true }); } catch {}
 
+  // recreate baseline
   ensureDir(path.join(STATE_DIR, "revisions"));
   ensureDir(path.join(STATE_DIR, "sites", "default"));
 
-  fs.writeFileSync(LAST_PATH, JSON.stringify({ site: "default", revision: null, currentPage: "index", ts: 0 }, null, 2), "utf-8");
+  safeWriteJson(LAST_PATH, { site: "default", revision: null, currentPage: "index", ts: 0 });
   fs.writeFileSync(path.join(STATE_DIR, "sites", "default", "conversation.json"), "[]", "utf-8");
   fs.writeFileSync(path.join(STATE_DIR, "sites", "default", "spec.json"), "{}", "utf-8");
 }

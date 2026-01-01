@@ -12,72 +12,114 @@
       display: flex;
       height: 100vh;
     }
-
     #chat {
       width: 40%;
+      border-right: 1px solid #1f2a37;
       display: flex;
       flex-direction: column;
-      border-right: 1px solid #222;
+      background: #0f141a;
     }
-
+    #topbar {
+      padding: 12px;
+      border-bottom: 1px solid #1f2a37;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    #topbar .left {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    #topbar button {
+      background: #1f2937;
+      color: #e5e7eb;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    #topbar button.primary {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+    }
     #messages {
       flex: 1;
-      padding: 16px;
+      padding: 12px;
       overflow-y: auto;
       font-size: 14px;
     }
-
-    .msg { margin-bottom: 10px; }
+    .msg { margin-bottom: 8px; }
     .user { color: #7dd3fc; }
     .ai { color: #a7f3d0; }
-
     #inputBar {
       display: flex;
-      border-top: 1px solid #222;
+      gap: 8px;
+      padding: 10px;
+      border-top: 1px solid #1f2a37;
     }
-
     #input {
       flex: 1;
-      padding: 12px;
-      background: #111;
+      padding: 10px;
+      background: #0b0e11;
       color: #fff;
-      border: none;
-      outline: none;
+      border: 1px solid #1f2a37;
+      border-radius: 8px;
     }
-
-    button {
-      padding: 0 18px;
+    #sendBtn {
+      padding: 0 14px;
       background: #2563eb;
       color: #fff;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
     }
-
-    #preview {
+    #previewWrap {
       flex: 1;
-      background: #ffffff;
-      color: #000;
-      padding: 40px;
+      padding: 20px;
       overflow-y: auto;
     }
-
-    section {
-      margin-bottom: 40px;
+    #preview {
+      max-width: 900px;
+      margin: auto;
     }
+    .card {
+      border: 1px solid #1f2a37;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #0f141a;
+    }
+    .hero h1 { margin: 0 0 8px 0; }
+    .muted { color: #9ca3af; }
   </style>
 </head>
 <body>
 
 <div id="chat">
+  <div id="topbar">
+    <div class="left">
+      <strong>AI Platform</strong>
+      <span class="muted">v0.19</span>
+    </div>
+    <div class="left">
+      <button onclick="resetSite()">New site</button>
+      <button class="primary" onclick="exportZip()">Export ZIP</button>
+    </div>
+  </div>
+
   <div id="messages"></div>
+
   <div id="inputBar">
     <input id="input" placeholder="Describe or refine your site..." />
-    <button onclick="send()">Send</button>
+    <button id="sendBtn" onclick="send()">Send</button>
   </div>
 </div>
 
-<div id="preview">
-  <em>No site yet.</em>
+<div id="previewWrap">
+  <div id="preview" class="muted">Describe your site to begin.</div>
 </div>
 
 <script>
@@ -94,44 +136,41 @@ function addMsg(text, cls) {
   messages.scrollTop = messages.scrollHeight;
 }
 
-function renderValue(value, container) {
-  if (typeof value === "string") {
-    const p = document.createElement("p");
-    p.textContent = value;
-    container.appendChild(p);
-  }
-  else if (Array.isArray(value)) {
-    value.forEach(v => renderValue(v, container));
-  }
-  else if (typeof value === "object" && value !== null) {
-    Object.values(value).forEach(v => renderValue(v, container));
-  }
-}
-
 function render(spec) {
   preview.innerHTML = "";
 
-  if (!spec || !spec.pages) {
-    preview.innerHTML = "<em>Empty page</em>";
+  if (!spec) {
+    preview.textContent = "Describe your site to begin.";
     return;
   }
 
-  const pageKey = Object.keys(spec.pages)[0];
-  const page = spec.pages[pageKey];
+  const pageKey = spec.pages ? Object.keys(spec.pages)[0] : null;
+  const page = pageKey ? spec.pages[pageKey] : null;
 
-  const h1 = document.createElement("h1");
-  h1.textContent = page.title || page.name || "Untitled Page";
-  preview.appendChild(h1);
+  const sections = Array.isArray(page?.sections) && page.sections.length
+    ? page.sections
+    : [{
+        type: "hero",
+        headline: "Your site is being generated",
+        subheadline: "Refine it using natural language."
+      }];
 
-  if (!Array.isArray(page.sections)) {
-    preview.innerHTML += "<em>Empty page</em>";
-    return;
-  }
+  sections.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "card " + (s.type || "");
 
-  page.sections.forEach(section => {
-    const s = document.createElement("section");
-    renderValue(section, s);
-    preview.appendChild(s);
+    if (s.type === "hero") {
+      card.innerHTML = `
+        <div class="hero">
+          <h1>${s.headline || "Headline"}</h1>
+          <div class="muted">${s.subheadline || ""}</div>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `<strong>${s.type}</strong>`;
+    }
+
+    preview.appendChild(card);
   });
 }
 
@@ -150,16 +189,49 @@ async function send() {
   });
 
   const data = await res.json();
-  currentSpec = data.spec;
+  if (data.error) {
+    addMsg("Error: " + data.error, "ai");
+    return;
+  }
 
+  currentSpec = data.spec;
   addMsg("Updated site", "ai");
   render(currentSpec);
 }
 
-document.getElementById("input")
-  .addEventListener("keydown", e => {
-    if (e.key === "Enter") send();
-  });
+async function resetSite() {
+  await fetch("/reset", { method: "POST" });
+  currentSpec = null;
+  preview.textContent = "Describe your site to begin.";
+  messages.innerHTML = "";
+}
+
+async function exportZip() {
+  addMsg("Exporting ZIP…", "ai");
+
+  const res = await fetch("/export.zip", { method: "POST" });
+  if (!res.ok) {
+    addMsg("Export failed", "ai");
+    return;
+  }
+
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "site.zip";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+  addMsg("ZIP downloaded", "ai");
+}
+
+document.getElementById("input").addEventListener("keydown", e => {
+  if (e.key === "Enter") send();
+});
 </script>
 
 </body>

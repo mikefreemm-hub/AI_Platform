@@ -1,0 +1,35 @@
+{
+  "run_id": "31d2e77f-424e-49aa-ab5f-c74618bfacd6",
+  "version": "v0.7",
+  "input": {
+    "prompt": "test"
+  },
+  "started_at": "2025-12-31T13:26:48.886Z",
+  "steps": [
+    {
+      "id": "decision-1",
+      "type": "decision",
+      "input": {
+        "prompt": "test"
+      },
+      "output": "single-response",
+      "timestamp": "2025-12-31T13:26:48.886Z"
+    },
+    {
+      "id": "reflection-1",
+      "type": "reflection",
+      "input": "analyze",
+      "output": "ready",
+      "timestamp": "2025-12-31T13:26:48.887Z"
+    },
+    {
+      "id": "output-1",
+      "type": "output",
+      "input": "test",
+      "output": "Hello from v0.7",
+      "timestamp": "2025-12-31T13:26:48.887Z"
+    }
+  ],
+  "final_output": "Hello from v0.7",
+  "finalized_at": "2025-12-31T13:26:48.887Z"
+}

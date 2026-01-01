@@ -1,275 +1,105 @@
 import express from "express";
-import fs from "fs";
+import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import fetch from "node-fetch";
+
+const OPENAI_KEY = process.env.OPENAI_KEY;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
-
-/* =========================
-   MIDDLEWARE
-========================= */
-
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/builds", express.static(path.join(__dirname, "builds")));
 
-/* =========================
-   HELPERS
-========================= */
+let currentSpec = null;
 
-function ensureDir(d) {
-  fs.mkdirSync(d, { recursive: true });
-}
+/*
+  🔑 QUALITY-ANCHORED TRANSFORM
+*/
+async function transformSpec(previousSpec, instruction) {
+  const systemPrompt =
+"You are an expert website designer and copywriter.\n" +
+"You create high-quality, modern, commercially viable websites.\n\n" +
 
-function normalize(t) {
-  return t.toLowerCase().replace(/[^a-z\s]/g, "").replace(/\s+/g, " ").trim();
-}
+"GLOBAL QUALITY ANCHORS (ALWAYS APPLY):\n" +
+"- Assume the site is for a real business with real customers\n" +
+"- Prefer clear value propositions over generic statements\n" +
+"- Write confident, concise, modern copy\n" +
+"- Avoid filler phrases like 'Welcome to our website'\n" +
+"- Structure pages for readability and conversion\n" +
+"- Use sectioned layouts with clear intent (hero, value, proof, CTA)\n" +
+"- Output should feel comparable to a strong SaaS or startup landing page\n\n" +
 
-function slugify(t) {
-  return t
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
+"OUTPUT REQUIREMENTS:\n" +
+"- Return a COMPLETE website specification as VALID JSON ONLY\n" +
+"- Do NOT include markdown, backticks, or explanations\n" +
+"- Must include a 'pages' object\n" +
+"- At least one page\n" +
+"- Pages must be renderable\n\n" +
 
-/* =========================
-   MEMORY
-========================= */
+"IMPORTANT:\n" +
+"- You may improve, rewrite, or restructure previous content if quality can be improved\n" +
+"- All changes must respect the user's natural language instruction\n";
 
-function memoryPath(site) {
-  return path.join(__dirname, "builds", site, "memory.json");
-}
-
-function loadMemory(site) {
-  if (!fs.existsSync(memoryPath(site))) return {};
-  return JSON.parse(fs.readFileSync(memoryPath(site), "utf-8"));
-}
-
-function saveMemory(site, memory) {
-  ensureDir(path.join(__dirname, "builds", site));
-  fs.writeFileSync(memoryPath(site), JSON.stringify(memory, null, 2));
-}
-
-/* =========================
-   THEME
-========================= */
-
-function applyTheme(theme, memory, msg) {
-  const t = normalize(msg);
-
-  if (memory.theme?.mode === "dark") {
-    theme.mode = "dark";
-    theme.bg = "#0b0e11";
-    theme.text = "#e6e6e6";
-  }
-
-  if (memory.theme?.mode === "light") {
-    theme.mode = "light";
-    theme.bg = "#ffffff";
-    theme.text = "#111111";
-  }
-
-  if (memory.theme?.accent === "green") {
-    theme.accent = "#16a34a";
-  }
-
-  if (t.includes("dark")) {
-    theme.mode = "dark";
-    theme.bg = "#0b0e11";
-    theme.text = "#e6e6e6";
-  }
-
-  if (t.includes("light")) {
-    theme.mode = "light";
-    theme.bg = "#ffffff";
-    theme.text = "#111111";
-  }
-
-  if (t.includes("green")) {
-    theme.accent = "#16a34a";
-  }
-
-  return theme;
-}
-
-/* =========================
-   SPEC
-========================= */
-
-function defaultPage() {
-  return {
-    sections: [
-      { type: "hero", text: "Welcome" },
-      { type: "features", items: ["Fast", "Flexible", "Built with AI"] }
-    ]
-  };
-}
-
-function generateSpec(prompt, memory) {
-  const theme = {
-    mode: "light",
-    bg: "#ffffff",
-    text: "#111111",
-    accent: "#2563eb"
-  };
-
-  applyTheme(theme, memory, "");
-
-  return {
-    title: prompt,
-    theme,
-    nav: ["home"],
-    pages: { home: defaultPage() },
-    currentPage: memory.lastPage || "home"
-  };
-}
-
-/* =========================
-   PAGE + CONTENT
-========================= */
-
-function ensurePage(spec, page) {
-  if (!spec.pages[page]) {
-    spec.pages[page] = defaultPage();
-    spec.nav.push(page);
-  }
-}
-
-function refinePages(spec, msg) {
-  const t = normalize(msg);
-
-  const add = t.match(/add (\w+) page/);
-  if (add) ensurePage(spec, add[1]);
-
-  const sw = t.match(/(switch to|edit) (\w+) page/);
-  if (sw) {
-    ensurePage(spec, sw[2]);
-    spec.currentPage = sw[2];
-  }
-}
-
-function refineContent(spec, msg) {
-  const t = normalize(msg);
-  const page = spec.pages[spec.currentPage];
-  if (!page) return;
-
-  const hero = t.match(/rewrite .*hero.* to (.+)/);
-  if (hero) {
-    const h = page.sections.find(s => s.type === "hero");
-    if (h) h.text = hero[1];
-  }
-}
-
-/* =========================
-   RENDER
-========================= */
-
-function renderNav(spec) {
-  return `<nav>${spec.nav
-    .map(p => `<a href="${p}.html">${p}</a>`)
-    .join(" ")}</nav>`;
-}
-
-function renderPage(name, page, spec) {
-  return `<!DOCTYPE html>
-<html>
-<head>
-<title>${spec.title} – ${name}</title>
-<style>
-body {
-  font-family: system-ui;
-  padding: 40px;
-  background: ${spec.theme.bg};
-  color: ${spec.theme.text};
-}
-nav a {
-  margin-right: 16px;
-  color: ${spec.theme.accent};
-  text-decoration: none;
-}
-section { margin-top: 40px; }
-</style>
-</head>
-<body>
-${renderNav(spec)}
-<h1>${name}</h1>
-${page.sections.map(s =>
-  s.type === "hero"
-    ? `<section><h2>${s.text}</h2></section>`
-    : `<section><ul>${s.items.map(i => `<li>${i}</li>`).join("")}</ul></section>`
-).join("")}
-</body>
-</html>`;
-}
-
-/* =========================
-   CHAT
-========================= */
-
-app.post("/chat", (req, res) => {
-  const { message, site, revision } = req.body;
-
-  const siteId = site ?? slugify(message);
-  const rev = Date.now().toString();
-  const dir = path.join(__dirname, "builds", siteId, rev);
-  ensureDir(dir);
-
-  let memory = site ? loadMemory(siteId) : {};
-  let spec;
-
-  if (!site) {
-    spec = generateSpec(message, memory);
-  } else {
-    spec = JSON.parse(
-      fs.readFileSync(
-        path.join(__dirname, "builds", siteId, revision, "spec.json"),
-        "utf-8"
-      )
-    );
-  }
-
-  refinePages(spec, message);
-  refineContent(spec, message);
-
-  spec.theme = applyTheme(spec.theme, memory, message);
-
-  if (normalize(message).includes("dark"))
-    memory.theme = { ...(memory.theme || {}), mode: "dark" };
-
-  if (normalize(message).includes("light"))
-    memory.theme = { ...(memory.theme || {}), mode: "light" };
-
-  memory.lastPage = spec.currentPage;
-  saveMemory(siteId, memory);
-
-  fs.writeFileSync(
-    path.join(dir, "spec.json"),
-    JSON.stringify(spec, null, 2)
+  const res = await fetch(
+    "https://api.openai.com/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + OPENAI_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        temperature: 0.7,
+        messages: [
+          { role: "system", content: systemPrompt },
+          {
+            role: "user",
+            content: JSON.stringify({
+              previousSpec,
+              instruction
+            })
+          }
+        ]
+      })
+    }
   );
 
-  Object.entries(spec.pages).forEach(([n, p]) =>
-    fs.writeFileSync(
-      path.join(dir, `${n}.html`),
-      renderPage(n, p, spec)
-    )
-  );
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error("OpenAI API error: " + errText);
+  }
 
-  res.json({
-    message: `Updated site based on: "${message}"`,
-    site: siteId,
-    revision: rev,
-    page: spec.currentPage
-  });
+  const raw = await res.json();
+  let content = raw.choices[0].message.content;
+
+  content = content
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
+  return JSON.parse(content);
+}
+
+/*
+  🌐 SINGLE NATURAL-LANGUAGE ENDPOINT
+*/
+app.post("/chat", async (req, res) => {
+  try {
+    const { message } = req.body;
+    currentSpec = await transformSpec(currentSpec, message);
+    res.json({ spec: currentSpec });
+  } catch (e) {
+    console.error("❌ /chat failed:");
+    console.error(e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
-/* =========================
-   START
-========================= */
-
-app.listen(PORT, () => {
-  console.log("AI Platform v0.19 running at http://localhost:3001");
+app.listen(3001, () => {
+  console.log("🚀 AI Platform v0.19 running at http://localhost:3001");
 });

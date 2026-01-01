@@ -1,9 +1,11 @@
-node_modules/
-**/node_modules/
-builds/
-**/builds/
-.DS_Store
+node_modules
+.next
+dist
+build
+coverage
+.cache
+builds
 .env
-# Experimental / archived work
-ui-lindy/
-v0.7/
+.env.local
+.DS_Store
+Thumbs.db

@@ -1,4 +1,14 @@
+# Dependencies
 node_modules/
+
+# Environment
 .env
 
+# Framework output
 .next/
+
+# Runtime-generated website builds
+v0.8/backend/builds/
+
+# Archives
+*.zip

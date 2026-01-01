@@ -1,9 +1,0 @@
-{
-  "title": "Modern Coffee Shop",
-  "files": [
-    {
-      "path": "index.html",
-      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Modern Coffee Shop</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <header>\n        <h1>Welcome to Modern Coffee Shop</h1>\n        <nav>\n            <ul>\n                <li><a href=\"#menu\">Menu</a></li>\n                <li><a href=\"#about\">About Us</a></li>\n                <li><a href=\"#contact\">Contact</a></li>\n            </ul>\n        </nav>\n    </header>\n    <main>\n        <section id=\"menu\">\n            <h2>Our Menu</h2>\n            <ul>\n                <li>Coffee - $3.00</li>\n                <li>Espresso - $2.50</li>\n                <li>Latte - $4.00</li>\n                <li>Cappuccino - $4.50</li>\n                <li>Mocha - $4.75</li>\n                <li>Tea - $2.00</li>\n                <li>Pastries - $2.50</li>\n            </ul>\n        </section>\n        <section id=\"about\">\n            <h2>About Us</h2>\n            <p>At Modern Coffee Shop, we believe in serving the best coffee made from high-quality beans sourced from around the world. Our cozy atmosphere is perfect for relaxing or catching up with friends.</p>\n        </section>\n        <section id=\"contact\">\n            <h2>Contact Us</h2>\n            <p>Email: info@moderncoffeeshop.com</p>\n            <p>Phone: (123) 456-7890</p>\n        </section>\n    </main>\n    <footer>\n        <p>&copy; 2023 Modern Coffee Shop. All rights reserved.</p>\n    </footer>\n</body>\n</html>"
-    }
-  ]
-}

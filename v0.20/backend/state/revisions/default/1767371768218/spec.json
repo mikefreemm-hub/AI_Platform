@@ -1,0 +1,51 @@
+{
+  "site": {
+    "title": "Dog website",
+    "theme": {
+      "mode": "light",
+      "accent": "indigo"
+    },
+    "intent": {
+      "global": {
+        "calm": 0.55,
+        "salesiness": 0.55,
+        "density": 0.55,
+        "warmth": 0.55
+      }
+    },
+    "pages": [
+      {
+        "id": "home",
+        "title": "Home",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "Dog website — made simple",
+            "subhead": "A clean, fast website built from natural language.",
+            "ctaPrimary": "Get Started",
+            "ctaSecondary": "See How It Works"
+          },
+          {
+            "type": "features",
+            "title": "Key Features",
+            "items": [
+              {
+                "title": "Natural language generation",
+                "body": "Describe what you want."
+              },
+              {
+                "title": "Chat-style refinement",
+                "body": "Refine it conversationally."
+              },
+              {
+                "title": "Revision history",
+                "body": "Restore any version instantly."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "__genericText": ""
+}

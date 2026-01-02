@@ -1,0 +1,125 @@
+{
+  "site": {
+    "title": "A dog grooming startup",
+    "theme": {
+      "mode": "dark",
+      "accent": "indigo"
+    },
+    "intent": {
+      "global": {
+        "calm": 0.55,
+        "salesiness": 0.4,
+        "density": 0.55,
+        "warmth": 0.55
+      }
+    },
+    "pages": [
+      {
+        "id": "home",
+        "title": "Home",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "A dog grooming startup — made simple",
+            "subhead": "A clean, fast website built from natural language. Tell it what you want, and refine it like ChatGPT.",
+            "ctaPrimary": "Get Started",
+            "ctaSecondary": "See How It Works"
+          },
+          {
+            "type": "features",
+            "title": "Key Features",
+            "items": [
+              {
+                "title": "Natural language generation",
+                "body": "Describe the site you want. The system generates structure, copy, and layout."
+              },
+              {
+                "title": "Chat-style refinement",
+                "body": "Keep talking to refine sections, tone, layout, and visuals."
+              },
+              {
+                "title": "Revision history",
+                "body": "Every change creates a revision you can preview and restore instantly."
+              }
+            ]
+          },
+          {
+            "type": "testimonials",
+            "title": "What people say",
+            "items": [
+              {
+                "name": "Alex",
+                "quote": "I shipped a landing page in minutes — then refined it like a conversation."
+              },
+              {
+                "name": "Sam",
+                "quote": "The revisions make it easy to experiment without fear."
+              },
+              {
+                "name": "Jordan",
+                "quote": "The output is clean and the workflow feels like ChatGPT."
+              }
+            ]
+          },
+          {
+            "type": "pricing",
+            "title": "Pricing",
+            "items": [
+              {
+                "name": "Starter",
+                "price": "$0",
+                "bullets": [
+                  "1 site",
+                  "Unlimited edits",
+                  "Export HTML"
+                ]
+              },
+              {
+                "name": "Pro",
+                "price": "$19/mo",
+                "bullets": [
+                  "Multiple sites",
+                  "Revision history",
+                  "Priority generation"
+                ]
+              },
+              {
+                "name": "Team",
+                "price": "Contact",
+                "bullets": [
+                  "Shared workspaces",
+                  "Templates",
+                  "SSO"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "faq",
+            "title": "FAQ",
+            "items": [
+              {
+                "q": "Can I refine with natural language?",
+                "a": "Yes. Just tell it what to change and it creates a new revision."
+              },
+              {
+                "q": "Do I lose my previous versions?",
+                "a": "No. Revisions are saved and you can restore any one."
+              },
+              {
+                "q": "Can I export the site?",
+                "a": "Yes. Export the current build as a zip."
+              }
+            ]
+          },
+          {
+            "type": "contact",
+            "title": "Contact",
+            "body": "Want a custom build or multi-page site? Reach out and we’ll help you ship."
+          }
+        ]
+      }
+    ]
+  },
+  "__genericText": "make it dark and less salesy"
+}

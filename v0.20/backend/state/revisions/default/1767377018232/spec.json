@@ -1,0 +1,122 @@
+{
+  "site": {
+    "title": "add an about page and a pricing page. move testimonials above pricing. make it dark with teal accent. less salesy and warmer.",
+    "pages": [
+      {
+        "id": "home",
+        "title": "Home",
+        "sections": [
+          {
+            "type": "pricing",
+            "title": "Pricing",
+            "items": []
+          },
+          {
+            "type": "testimonials",
+            "title": "What people say",
+            "quotes": []
+          }
+        ]
+      },
+      {
+        "id": "about",
+        "title": "About",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "About — made simple",
+            "subhead": "A clean, fast website built from natural language."
+          },
+          {
+            "type": "content",
+            "headline": "About",
+            "body": "Add your content here."
+          }
+        ]
+      },
+      {
+        "id": "an-about",
+        "title": "An about",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "An about — made simple",
+            "subhead": "A clean, fast website built from natural language.",
+            "cta": {
+              "label": "Get Started",
+              "href": "#contact"
+            }
+          },
+          {
+            "type": "content",
+            "headline": "About",
+            "body": "Add your content here."
+          }
+        ]
+      },
+      {
+        "id": "a-pricing",
+        "title": "A pricing",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "A pricing — made simple",
+            "subhead": "A clean, fast website built from natural language.",
+            "cta": {
+              "label": "Get Started",
+              "href": "#contact"
+            }
+          },
+          {
+            "type": "pricing",
+            "title": "Pricing",
+            "items": [
+              {
+                "name": "Starter",
+                "price": "$0",
+                "bullets": [
+                  "Basic site",
+                  "Unlimited edits"
+                ]
+              },
+              {
+                "name": "Pro",
+                "price": "$19/mo",
+                "bullets": [
+                  "More sections",
+                  "Export HTML"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "faq",
+            "items": [
+              {
+                "q": "Can I edit the site later?",
+                "a": "Yes — just describe what you want changed."
+              },
+              {
+                "q": "Does this support multiple pages?",
+                "a": "Yes — add pages like About, Pricing, and Contact."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "theme": {
+      "mode": "dark",
+      "accent": "teal"
+    },
+    "intent": {
+      "global": {
+        "calm": 0.55,
+        "salesiness": 0.10000000000000003,
+        "density": 0.55,
+        "warmth": 0.75
+      }
+    }
+  },
+  "__genericText": "add an about page and a pricing page. make it dark with teal accent."
+}

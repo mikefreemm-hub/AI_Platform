@@ -1,0 +1,65 @@
+{
+  "site": {
+    "title": "A landing page for a dog grooming startup",
+    "theme": {
+      "mode": "dark",
+      "accent": "indigo"
+    },
+    "intent": {
+      "global": {
+        "calm": 0.55,
+        "salesiness": 0.35000000000000003,
+        "density": 0.55,
+        "warmth": 0.55
+      }
+    },
+    "pages": [
+      {
+        "id": "home",
+        "title": "Home",
+        "sections": [
+          {
+            "type": "hero",
+            "headline": "A landing page for a dog grooming startup — made simple",
+            "subhead": "A clean, fast website built from natural language.",
+            "ctaPrimary": "Get Started",
+            "ctaSecondary": "See How It Works"
+          },
+          {
+            "type": "features",
+            "title": "Key Features",
+            "items": [
+              {
+                "title": "Natural language generation",
+                "body": "Describe what you want."
+              },
+              {
+                "title": "Chat-style refinement",
+                "body": "Refine it conversationally."
+              },
+              {
+                "title": "Revision history",
+                "body": "Restore any version instantly."
+              }
+            ]
+          },
+          {
+            "type": "testimonials",
+            "title": "What people say",
+            "items": [
+              {
+                "name": "Alex",
+                "quote": "Incredibly easy to refine."
+              },
+              {
+                "name": "Sam",
+                "quote": "Feels like talking to ChatGPT."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "__genericText": "add testimonials"
+}

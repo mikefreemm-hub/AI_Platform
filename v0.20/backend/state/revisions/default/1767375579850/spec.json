@@ -1,0 +1,12 @@
+{
+  "site": {
+    "title": "add an about page and a pricing page. move testimonials above pricing. make it dark with teal accent. less salesy and warmer.",
+    "pages": [
+      {
+        "id": "home",
+        "title": "Home",
+        "sections": []
+      }
+    ]
+  }
+}

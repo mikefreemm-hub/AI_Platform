@@ -1,0 +1,872 @@
+[
+  {
+    "ts": 1767340170805,
+    "role": "user",
+    "content": "MAKE A WEBSITE ABOUT CATS"
+  },
+  {
+    "ts": 1767340198444,
+    "role": "user",
+    "content": "ADD A PHONE NUMBER FOR CONTACTS"
+  },
+  {
+    "ts": 1767340218658,
+    "role": "user",
+    "content": "DOG WEBSITE"
+  },
+  {
+    "ts": 1767340230954,
+    "role": "user",
+    "content": "Create a website for a dog rescue with a modern feel and strong donation CTA"
+  },
+  {
+    "ts": 1767340231009,
+    "role": "user",
+    "content": "On the Dog Breeds page, list Labrador, Beagle, and German Shepherd with descriptions"
+  },
+  {
+    "ts": 1767340231052,
+    "role": "user",
+    "content": "Add a page testimonials and add reviews"
+  },
+  {
+    "ts": 1767340730462,
+    "role": "user",
+    "content": "Add Golden Retriever to the dog breeds list"
+  },
+  {
+    "ts": 1767340748133,
+    "role": "user",
+    "content": "Add a page testimonials and add reviews"
+  },
+  {
+    "ts": 1767340810593,
+    "role": "user",
+    "content": "make a website about cats"
+  },
+  {
+    "ts": 1767340822377,
+    "role": "user",
+    "content": "dog website"
+  },
+  {
+    "ts": 1767340905507,
+    "role": "user",
+    "content": "Add Golden Retriever to the dog breeds list"
+  },
+  {
+    "ts": 1767340909136,
+    "role": "user",
+    "content": "Add a page testimonials and add reviews"
+  },
+  {
+    "ts": 1767341532693,
+    "role": "user",
+    "content": "This feels cluttered"
+  },
+  {
+    "ts": 1767341542512,
+    "role": "user",
+    "content": "Make it more calm and focused"
+  },
+  {
+    "ts": 1767341554372,
+    "role": "user",
+    "content": "Less salesy"
+  },
+  {
+    "ts": 1767341566184,
+    "role": "user",
+    "content": "Make the homepage shorter"
+  },
+  {
+    "ts": 1767341583640,
+    "role": "user",
+    "content": "This feels cold — make it warmer"
+  },
+  {
+    "ts": 1767341592720,
+    "role": "user",
+    "content": "Simplify the dog breeds page"
+  },
+  {
+    "ts": 1767341918336,
+    "role": "user",
+    "content": "This feels cluttered"
+  },
+  {
+    "ts": 1767341931778,
+    "role": "user",
+    "content": "Make it more calm and focused"
+  },
+  {
+    "ts": 1767341942768,
+    "role": "user",
+    "content": "Less salesy"
+  },
+  {
+    "ts": 1767341954874,
+    "role": "user",
+    "content": "Make the homepage shorter"
+  },
+  {
+    "ts": 1767341983123,
+    "role": "user",
+    "content": "This feels cold — make it warmer"
+  },
+  {
+    "ts": 1767341989781,
+    "role": "user",
+    "content": "Simplify the dog breeds page"
+  },
+  {
+    "ts": 1767342219910,
+    "role": "user",
+    "content": "Make the homepage shorter"
+  },
+  {
+    "ts": 1767342343261,
+    "role": "user",
+    "content": "Make the homepage shorter"
+  },
+  {
+    "ts": 1767342351422,
+    "role": "user",
+    "content": "Make the homepage shorter"
+  },
+  {
+    "ts": 1767342355765,
+    "role": "user",
+    "content": "Make the homepage shorter"
+  },
+  {
+    "ts": 1767342370600,
+    "role": "user",
+    "content": "This feels cluttered"
+  },
+  {
+    "ts": 1767342381307,
+    "role": "user",
+    "content": "This feels cluttered"
+  },
+  {
+    "ts": 1767342387758,
+    "role": "user",
+    "content": "This feels cluttered"
+  },
+  {
+    "ts": 1767342398355,
+    "role": "user",
+    "content": "This feels cold — make it warmer"
+  },
+  {
+    "ts": 1767342401057,
+    "role": "user",
+    "content": "This feels cold — make it warmer"
+  },
+  {
+    "ts": 1767342404042,
+    "role": "user",
+    "content": "This feels cold — make it warmer"
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767368225510
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767368225524
+  },
+  {
+    "role": "user",
+    "text": "make it dark and less salesy",
+    "ts": 1767368225575
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767368225590
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767368893188
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767368893194
+  },
+  {
+    "role": "user",
+    "text": "cat website",
+    "ts": 1767368903290
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767368903291
+  },
+  {
+    "role": "user",
+    "text": "cat",
+    "ts": 1767368918195
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767368918196
+  },
+  {
+    "role": "user",
+    "text": "build cat",
+    "ts": 1767368925970
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767368925971
+  },
+  {
+    "role": "user",
+    "text": "create cat website",
+    "ts": 1767368939415
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767368939429
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767368977945
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767368977952
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767368989231
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767368989237
+  },
+  {
+    "role": "user",
+    "text": "make it dark and less salesy",
+    "ts": 1767368997389
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767368997408
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369164118
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369164123
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369178659
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369178663
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369186646
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369186651
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369200176
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369200185
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369213541
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369213547
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369432751
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369432756
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369473412
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369473417
+  },
+  {
+    "role": "user",
+    "text": "make it dark and less salesy",
+    "ts": 1767369480681
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767369480689
+  },
+  {
+    "role": "user",
+    "text": "ok",
+    "ts": 1767369835405
+  },
+  {
+    "role": "assistant",
+    "text": "What do you want to build or change on your website?",
+    "ts": 1767369835406
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369867645
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369867662
+  },
+  {
+    "role": "user",
+    "text": "make it dark and less salesy",
+    "ts": 1767369873197
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767369873219
+  },
+  {
+    "role": "user",
+    "text": "add testimonials",
+    "ts": 1767369889386
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767369889402
+  },
+  {
+    "role": "user",
+    "text": "move testimonials above pricing",
+    "ts": 1767369909643
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767369909661
+  },
+  {
+    "role": "user",
+    "text": "create a landing page for a dog grooming startup",
+    "ts": 1767369949264
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767369949268
+  },
+  {
+    "role": "user",
+    "text": "make it dark and less salesy",
+    "ts": 1767369955871
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767369955878
+  },
+  {
+    "role": "user",
+    "text": "add testimonials",
+    "ts": 1767369985630
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767369985636
+  },
+  {
+    "role": "user",
+    "text": "move testimonials above pricing",
+    "ts": 1767370006614
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370006620
+  },
+  {
+    "role": "user",
+    "text": "rewrite hero to be friendlier",
+    "ts": 1767370027168
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370027185
+  },
+  {
+    "role": "user",
+    "text": "remove pricing",
+    "ts": 1767370034798
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370034818
+  },
+  {
+    "role": "user",
+    "text": "create cat website",
+    "ts": 1767370236942
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767370236955
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767370246746
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370246763
+  },
+  {
+    "role": "user",
+    "text": "create cat website",
+    "ts": 1767370264376
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767370264381
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767370278715
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370278721
+  },
+  {
+    "role": "user",
+    "text": "dog website",
+    "ts": 1767370290510
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767370290511
+  },
+  {
+    "role": "user",
+    "text": "create dog website.",
+    "ts": 1767370298229
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767370298243
+  },
+  {
+    "role": "user",
+    "text": "create dog website",
+    "ts": 1767370313840
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767370313853
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767370325304
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370325324
+  },
+  {
+    "role": "user",
+    "text": "add pricing page",
+    "ts": 1767370336834
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370336851
+  },
+  {
+    "role": "user",
+    "text": "remove about page",
+    "ts": 1767370365200
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370365218
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767370376767
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370376786
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767370589800
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370589806
+  },
+  {
+    "role": "user",
+    "text": "create dog website",
+    "ts": 1767370611310
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767370611314
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767370617500
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767370617509
+  },
+  {
+    "role": "user",
+    "text": "crteate dog",
+    "ts": 1767371039724
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371039725
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767371053070
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371053076
+  },
+  {
+    "role": "user",
+    "text": "add pricing page",
+    "ts": 1767371070988
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371070995
+  },
+  {
+    "role": "user",
+    "text": "dog website",
+    "ts": 1767371347733
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371347734
+  },
+  {
+    "role": "user",
+    "text": "cat",
+    "ts": 1767371352888
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371352890
+  },
+  {
+    "role": "user",
+    "text": "dog",
+    "ts": 1767371360495
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371360496
+  },
+  {
+    "role": "user",
+    "text": "fox",
+    "ts": 1767371370719
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371370720
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767371385195
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371385201
+  },
+  {
+    "role": "user",
+    "text": "fd",
+    "ts": 1767371392811
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371392812
+  },
+  {
+    "role": "user",
+    "text": "df",
+    "ts": 1767371400336
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do, and I’ll build or refine it.",
+    "ts": 1767371400337
+  },
+  {
+    "role": "user",
+    "text": "ok",
+    "ts": 1767371410446
+  },
+  {
+    "role": "assistant",
+    "text": "What do you want to build or change on your website?",
+    "ts": 1767371410447
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767371422577
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371422583
+  },
+  {
+    "role": "user",
+    "text": "Add Pricing page",
+    "ts": 1767371442763
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371442784
+  },
+  {
+    "role": "user",
+    "text": "create dog website",
+    "ts": 1767371601185
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767371601190
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767371609277
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371609283
+  },
+  {
+    "role": "user",
+    "text": "add pricing page",
+    "ts": 1767371622577
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371622584
+  },
+  {
+    "role": "user",
+    "text": "create dog website",
+    "ts": 1767371768217
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767371768223
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767371777110
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371777120
+  },
+  {
+    "role": "user",
+    "text": "create dog website",
+    "ts": 1767371961357
+  },
+  {
+    "role": "assistant",
+    "text": "Generating a new site from natural language",
+    "ts": 1767371961363
+  },
+  {
+    "role": "user",
+    "text": "add about page",
+    "ts": 1767371967154
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767371967161
+  },
+  {
+    "role": "user",
+    "text": "add an about page and a pricing page. move testimonials above pricing. make it dark with teal accent. less salesy and warmer.",
+    "ts": 1767374933580
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767374933604
+  },
+  {
+    "role": "user",
+    "text": "add an about page and a pricing page. move testimonials above pricing. make it dark with teal accent. less salesy and warmer.",
+    "ts": 1767375287099
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767375287127
+  },
+  {
+    "role": "user",
+    "text": "add an about page and a pricing page. make it dark with teal accent.",
+    "ts": 1767377018226
+  },
+  {
+    "role": "assistant",
+    "text": "Refining existing site based on instruction",
+    "ts": 1767377018251
+  },
+  {
+    "role": "user",
+    "text": "undo",
+    "ts": 1767377024825
+  },
+  {
+    "role": "assistant",
+    "text": "Rolled back. I removed the an-about page, removed the a-pricing page.",
+    "ts": 1767377024838
+  },
+  {
+    "role": "user",
+    "text": "rollback 2",
+    "ts": 1767377024894
+  },
+  {
+    "role": "assistant",
+    "text": "Rolled back. I made the tone warmer, made the content less salesy, added a hero section on the homepage, added a features section on the homepage, reordered sections on the homepage.",
+    "ts": 1767377024907
+  },
+  {
+    "role": "user",
+    "text": "restore revision 1767375909739",
+    "ts": 1767377024965
+  },
+  {
+    "role": "assistant",
+    "text": "Tell me what you want the website to do (topic, pages, style), and I’ll build or refine it.",
+    "ts": 1767377024966
+  },
+  {
+    "role": "user",
+    "text": "restore revision 1767375909739",
+    "ts": 1767377134873
+  },
+  {
+    "role": "assistant",
+    "text": "Rolled back. I removed the hero section from the homepage, removed the features section from the homepage, reordered sections on the homepage.",
+    "ts": 1767377134886
+  }
+]

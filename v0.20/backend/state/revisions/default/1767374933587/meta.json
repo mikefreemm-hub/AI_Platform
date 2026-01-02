@@ -1,0 +1,8 @@
+{
+  "site": "default",
+  "revision": "1767374933587",
+  "createdAt": 1767374933601,
+  "mode": "refine",
+  "summary": "Refining existing site based on instruction",
+  "message": "add an about page and a pricing page. move testimonials above pricing. make it dark with teal accent. less salesy and warmer."
+}

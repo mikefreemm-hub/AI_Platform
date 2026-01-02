@@ -83,18 +83,28 @@ export function saveSpec(site = "default", spec) {
 }
 
 export function resetAllState() {
-  // wipe everything but keep root folder
   ensureState();
 
   try { fs.rmSync(path.join(STATE_DIR, "revisions"), { recursive: true, force: true }); } catch {}
   try { fs.rmSync(path.join(STATE_DIR, "sites"), { recursive: true, force: true }); } catch {}
   try { fs.rmSync(LAST_PATH, { force: true }); } catch {}
 
-  // recreate baseline
   ensureDir(path.join(STATE_DIR, "revisions"));
   ensureDir(path.join(STATE_DIR, "sites", "default"));
 
   safeWriteJson(LAST_PATH, { site: "default", revision: null, currentPage: "index", ts: 0 });
   fs.writeFileSync(path.join(STATE_DIR, "sites", "default", "conversation.json"), "[]", "utf-8");
   fs.writeFileSync(path.join(STATE_DIR, "sites", "default", "spec.json"), "{}", "utf-8");
+}
+
+/* =========================================================
+   v0.21 Compatibility Exports
+   ========================================================= */
+
+export function loadSite(site = "default") {
+  return loadSpec(site);
+}
+
+export function saveSite(site = "default", spec) {
+  return saveSpec(site, spec);
 }

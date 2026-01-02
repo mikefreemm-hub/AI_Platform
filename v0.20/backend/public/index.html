@@ -2,116 +2,136 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>AI Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>AI Platform — Universal Chat</title>
+
   <style>
-    body{margin:0;background:#0b0e11;color:#e6e6e6;font-family:system-ui}
-    .app{display:flex;height:100vh}
-    .chat{width:380px;border-right:1px solid #1f2430;display:flex;flex-direction:column}
-    .messages{flex:1;overflow:auto;padding:16px}
-    .msg{margin-bottom:12px;padding:10px 12px;border-radius:12px;max-width:92%}
-    .user{background:#1f2937;margin-left:auto}
-    .assistant{background:#151922;color:#cbd5f5}
-    .input{display:flex;gap:8px;padding:12px;border-top:1px solid #1f2430}
-    input{flex:1;padding:10px;border-radius:10px;border:1px solid #333;background:#0b0e11;color:#fff}
-    button{padding:10px 14px;border-radius:10px;border:0;background:#2563eb;color:#fff;cursor:pointer}
-    button:disabled{opacity:.6}
-    iframe{flex:1;border:0;background:#000}
-    .status{opacity:.7;font-size:13px;margin-top:4px}
+    body{margin:0;font-family:system-ui;background:#0b0e11;color:#e8eef7;height:100vh;overflow:hidden}
+    .app{display:grid;grid-template-columns:420px 1fr;height:100vh}
+    .left{display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.1)}
+    .topbar,.previewTop{padding:10px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;gap:8px;align-items:center}
+    select,button{height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#e8eef7;padding:0 10px}
+    .chat{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+    .msg{max-width:92%;padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06)}
+    .msg.user{align-self:flex-end}
+    .composer{padding:12px;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:8px}
+    textarea{flex:1;resize:none;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e8eef7;padding:10px}
+    .right{display:flex;flex-direction:column;background:#05070a}
+    iframe{width:100%;height:100%;border:0;background:#0b0e11}
+    .empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(232,238,247,.6)}
+    .frameWrap{flex:1;position:relative}
   </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="chat">
-    <div id="messages" class="messages"></div>
-    <div class="input">
-      <input id="prompt" placeholder="Describe your website or a change…" />
+  <div class="left">
+    <div class="topbar">
+      <select id="revSel"></select>
+      <button id="restoreBtn">Restore</button>
+    </div>
+    <div id="chat" class="chat"></div>
+    <div class="composer">
+      <textarea id="input" placeholder="Describe a website, or refine the current one…"></textarea>
       <button id="send">Send</button>
     </div>
   </div>
-  <iframe id="preview"></iframe>
+
+  <div class="right">
+    <div class="previewTop">
+      <strong>Preview</strong>
+      <select id="pageSel"></select>
+      <button id="clearBtn">Clear</button>
+      <button id="reloadBtn">Reload</button>
+    </div>
+    <div class="frameWrap">
+      <div id="empty" class="empty">Preview is empty</div>
+      <iframe id="frame"></iframe>
+    </div>
+  </div>
 </div>
 
 <script>
-const messages = document.getElementById("messages");
-const input = document.getElementById("prompt");
-const sendBtn = document.getElementById("send");
-const preview = document.getElementById("preview");
+const chatEl=input=document.getElementById("chat");
+const inputEl=document.getElementById("input");
+const sendBtn=document.getElementById("send");
+const revSel=document.getElementById("revSel");
+const restoreBtn=document.getElementById("restoreBtn");
+const pageSel=document.getElementById("pageSel");
+const frame=document.getElementById("frame");
+const empty=document.getElementById("empty");
+const clearBtn=document.getElementById("clearBtn");
+const reloadBtn=document.getElementById("reloadBtn");
 
-let currentPage = "index";
+let lastRevision=null;
+let pages=["index.html"];
+let currentPage="index.html";
 
-function addMessage(text, role="assistant"){
-  const div = document.createElement("div");
-  div.className = "msg " + role;
-  div.textContent = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+function addMsg(t,w){const d=document.createElement("div");d.className=`msg ${w}`;d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+function clearPreview(){frame.src="about:blank";empty.style.display="flex"}
+function loadPreview(){if(!lastRevision)return;empty.style.display="none";frame.src=`/builds/default/${lastRevision}/${currentPage}`}
+
+function setPages(pageIds){
+  pages = pageIds.map(p=>p==="home"?"index.html":`${p}.html`);
+  pageSel.innerHTML="";
+  pages.forEach(p=>{
+    const o=document.createElement("option");
+    o.value=p;
+    o.textContent=p.replace(".html","").replace("index","home");
+    pageSel.appendChild(o);
+  });
+  if(!pages.includes(currentPage)) currentPage="index.html";
+  pageSel.value=currentPage;
 }
 
-function detectPageIntent(text){
-  const t = text.toLowerCase();
-  if(t.includes("home")) return "index";
-  if(t.includes("about")) return "about";
-  if(t.includes("gallery")) return "gallery";
-  if(t.includes("contact")) return "contact";
-  if(t.includes("dog breeds") || t.includes("breeds")) return "dog-breeds";
-  return null;
+async function refreshRevisions(){
+  const r=await fetch("/revisions?site=default");
+  const d=await r.json();
+  revSel.innerHTML="";
+  (d.revisions||[]).forEach(rv=>{
+    const o=document.createElement("option");
+    o.value=rv.revision;
+    o.textContent=`${rv.revision} — ${rv.summary}`;
+    revSel.appendChild(o);
+  });
+  if(d.current){lastRevision=d.current;revSel.value=d.current}
 }
 
-async function send(){
-  const text = input.value.trim();
-  if(!text) return;
+async function sendMessage(){
+  const text=inputEl.value.trim(); if(!text)return;
+  inputEl.value=""; addMsg(text,"user"); clearPreview();
 
-  addMessage(text, "user");
-  input.value = "";
-  sendBtn.disabled = true;
+  const r=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({site:"default",message:text})});
+  const d=await r.json();
+  if(!d?.ok){addMsg("Error","sys");return}
 
-  const target = detectPageIntent(text);
-  if(target) currentPage = target;
-
-  try {
-    addMessage("Thinking…");
-
-    // Chat
-    const chat = await fetch("/chat", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({ message: text })
-    });
-    if(!chat.ok) throw new Error("Chat failed");
-
-    // Export
-    const exp = await fetch("/export", { method:"POST" });
-    if(!exp.ok) throw new Error("Export failed");
-
-    // Update preview
-    preview.src =
-      "/builds/default/index.html?page=" +
-      currentPage +
-      "&ts=" + Date.now();
-
-    // Assistant confirmation
-    addMessage(
-      target
-        ? `Updated the ${target.replace("-", " ")} page.`
-        : "Updated the site."
-    );
-
-  } catch (e){
-    addMessage("⚠️ " + e.message);
-  } finally {
-    sendBtn.disabled = false;
-  }
+  addMsg(d.summary||"OK","sys");
+  lastRevision=d.revision;
+  if(d.pages) setPages(d.pages);
+  await refreshRevisions();
+  if (d.pages) setPages(d.pages);
+  loadPreview();
 }
 
-sendBtn.onclick = send;
-input.onkeydown = e => { if(e.key === "Enter") send(); };
+sendBtn.onclick=sendMessage;
+inputEl.onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage()}};
+pageSel.onchange=()=>{currentPage=pageSel.value;loadPreview()};
+restoreBtn.onclick=async()=>{
+  const rev=revSel.value; if(!rev)return;
+  const r=await fetch("/revisions/set",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({site:"default",revision:rev})});
+  const d=await r.json(); if(!d?.ok)return;
+  addMsg(`Restored revision: ${rev}`,"sys");
+  lastRevision=rev;
+  loadPreview();
+};
 
-// Initial load
-preview.src = "/builds/default/index.html?page=index&ts=" + Date.now();
-addMessage("Hi! Describe a website to generate, or tell me what to change.");
+clearBtn.onclick=clearPreview;
+reloadBtn.onclick=loadPreview;
+
+addMsg("Universal chat is ready.","sys");
+refreshRevisions();
+setPages(["home"]);
 </script>
-
 </body>
 </html>
+
